@@ -3,3 +3,4 @@ langgraph
 pydantic
 dotenv
 langchain_groq 
+psycopg2-binary
