@@ -17,19 +17,22 @@ def pick_llm(level: str):
     if level.lower() == "low":
         llm = ChatGroq(
             model="qwen/qwen3.6-27b",
-            temperature=0
+            temperature=0,
+            max_tokens=1000
         )
 
     elif level.lower() == "medium":
         llm = ChatGroq(
             model="qwen/qwen3.6-27b",
-            temperature=0
+            temperature=0,
+            max_tokens=1000
         )
 
     elif level.lower() == "high":
         llm = ChatGroq(
             model="qwen/qwen3.6-27b",
-            temperature=0
+            temperature=0,
+            max_tokens=1000
         )
 
     else:

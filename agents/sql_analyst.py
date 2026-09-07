@@ -75,6 +75,11 @@ def generate_sql(state: AgentSchema) -> AgentSchema:
 
     generated_sql_query = llm.invoke(prompt).content  # Generate the SQL query using the LLM
 
+    if "<think>" in generated_sql_query:
+        generated_sql_query = generated_sql_query.split("</think>")[-1].strip()
+
+    generated_sql_query = generated_sql_query.replace("```sql", "").replace("```", "").strip()
+
     state.generated_sql_query = generated_sql_query
 
     return state
@@ -218,29 +223,29 @@ if __name__ == "__main__":
     with open("sql_analyst_graph.png", "wb") as f:
         f.write(img.data)
 
-    # input_schema = {
-    #     "messages": [],
-    #     "user_question": "What are the different types of Payment Methods we have in our database",
-    #     "curated_ques": "",
-    #     "prompt_query_context": "",
-    #     "generated_sql_query": "",
-    #     "is_safe": "No",
-    #     "comments": "",
-    #     "sql_query_execution_result": "",
-    #     "final_answer": ""
-    # }
+    input_schema = {
+        "messages": [],
+        "user_question": "What are the different types of Payment Methods we have in our database",
+        "curated_ques": "",
+        "prompt_query_context": "",
+        "generated_sql_query": "",
+        "is_safe": "No",
+        "comments": "",
+        "sql_query_execution_result": "",
+        "final_answer": ""
+    }
 
-    # # Execute the Graph
-    # sql_analyst_response = sql_analyst.invoke(input_schema)
-    # print(sql_analyst_response['messages'])  # Print the final output of the graph execution
-    # print("********************************")
+    # Execute the Graph
+    sql_analyst_response = sql_analyst.invoke(input_schema)
+    print(sql_analyst_response['messages'])  # Print the final output of the graph execution
+    print("********************************")
 
-    # print(sql_analyst_response['generated_sql_query'])  # Print the generated SQL query
+    print(sql_analyst_response['generated_sql_query'])  # Print the generated SQL query
 
-    # print("********************************")
+    print("********************************")
 
-    # print(sql_analyst_response['sql_query_execution_result'])  # Print the result of executing the SQL query
+    print(sql_analyst_response['sql_query_execution_result'])  # Print the result of executing the SQL query
 
-    # print("********************************")
+    print("********************************")
 
-    # print(sql_analyst_response['prompt_query_context'])  # Print the prompt query context
+    print(sql_analyst_response['prompt_query_context'])  # Print the prompt query context
